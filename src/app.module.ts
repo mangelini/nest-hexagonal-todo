@@ -1,10 +1,21 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import {
+  databaseConfig,
+  postgresConnectionUri,
+} from './configs/database.config';
+import postgres from 'postgres';
 
 @Module({
   imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [
+    {
+      provide: 'PG_CONNECTION',
+      useFactory: async () => {
+        const sql = postgres(postgresConnectionUri, databaseConfig);
+        return sql;
+      },
+    },
+  ],
 })
 export class AppModule {}
