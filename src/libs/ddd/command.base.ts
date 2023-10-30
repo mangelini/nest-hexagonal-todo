@@ -1,6 +1,7 @@
 import { RequestContextService } from '@libs/application/context/AppRequestContext';
 import { ArgumentNotProvidedException } from '../exceptions';
 import { Guard } from '../guard';
+import * as crypto from 'crypto';
 
 export type CommandProps<T> = Omit<T, 'id' | 'metadata'> & Partial<Command>;
 

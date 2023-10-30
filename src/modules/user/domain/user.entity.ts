@@ -3,6 +3,7 @@ import { UserCreatedDomainEvent } from './events/user-created.domain-event';
 import { CreateUserProps, UserProps, UserRoles } from './user.types';
 import { UserDeletedDomainEvent } from './events/user-deleted.domain-event';
 import { UserRoleChangedDomainEvent } from './events/user-role-changed.domain-event';
+import * as crypto from 'crypto';
 
 export class UserEntity extends AggregateRoot<UserProps> {
   protected readonly _id: AggregateID;

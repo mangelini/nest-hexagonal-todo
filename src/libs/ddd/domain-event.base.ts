@@ -1,6 +1,7 @@
 import { ArgumentNotProvidedException } from '../exceptions';
 import { Guard } from '../guard';
 import { RequestContextService } from '@libs/application/context/AppRequestContext';
+import * as crypto from 'crypto';
 
 type DomainEventMetadata = {
   /** Timestamp when this domain event occurred */
