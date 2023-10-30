@@ -29,7 +29,7 @@ export class DeleteUserHttpController {
   })
   @Delete(routesV1.user.delete)
   async deleteUser(@Param('id') id: string): Promise<void> {
-    const command = new DeleteUserCommand({ userId: id });
+    const command = new DeleteUserCommand({ userUuid: id });
     const result: Result<boolean, NotFoundException> =
       await this.commandBus.execute(command);
 
