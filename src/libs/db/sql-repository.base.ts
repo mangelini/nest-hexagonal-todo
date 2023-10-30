@@ -40,7 +40,7 @@ export abstract class SqlRepositoryBase<
   async findOneById(id: string): Promise<Option<Aggregate>> {
     const query = sql.type(this.schema)`SELECT * FROM ${sql.identifier([
       this.tableName,
-    ])} WHERE id = ${id}`;
+    ])} WHERE uuid = ${id}`;
 
     const result = await this.pool.query(query);
     return result.rows[0] ? Some(this.mapper.toDomain(result.rows[0])) : None;
@@ -80,7 +80,7 @@ export abstract class SqlRepositoryBase<
     entity.validate();
     const query = sql`DELETE FROM ${sql.identifier([
       this.tableName,
-    ])} WHERE id = ${entity.id}`;
+    ])} WHERE uuid = ${entity.id}`;
 
     this.logger.debug(
       `[${RequestContextService.getRequestId()}] deleting entities ${
