@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IdResponse } from './id.response.dto';
 
 export interface BaseResponseProps {
-  id: number;
+  id: string;
   createdAt: Date;
   updatedAt: Date;
 }

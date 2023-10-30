@@ -1,4 +1,5 @@
 import { RequestContext } from 'nestjs-request-context';
+import { DatabaseTransactionConnection } from 'slonik';
 
 /**
  * Setting some isolated context for each request.
@@ -6,6 +7,7 @@ import { RequestContext } from 'nestjs-request-context';
 
 export class AppRequestContext extends RequestContext {
   requestId: string;
+  transactionConnection?: DatabaseTransactionConnection; // For global transactions
 }
 
 export class RequestContextService {
@@ -21,5 +23,22 @@ export class RequestContextService {
 
   static getRequestId(): string {
     return this.getContext().requestId;
+  }
+
+  static getTransactionConnection(): DatabaseTransactionConnection | undefined {
+    const ctx = this.getContext();
+    return ctx.transactionConnection;
+  }
+
+  static setTransactionConnection(
+    transactionConnection?: DatabaseTransactionConnection,
+  ): void {
+    const ctx = this.getContext();
+    ctx.transactionConnection = transactionConnection;
+  }
+
+  static cleanTransactionConnection(): void {
+    const ctx = this.getContext();
+    ctx.transactionConnection = undefined;
   }
 }

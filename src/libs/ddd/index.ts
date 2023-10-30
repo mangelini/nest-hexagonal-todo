@@ -5,3 +5,4 @@ export * from './repository.port';
 export * from './value-object.base';
 export * from './aggregate-root';
 export * from './domain-event.base';
+export * from './command.base';
