@@ -5,6 +5,9 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
 import { ContextInterceptor } from './libs/application/context/ContextInterceptor';
 import { ExceptionInterceptor } from '@libs/application/interceptors/exception.interceptor';
 import { SlonikModule } from 'nestjs-slonik';
+import { EventEmitterModule } from '@nestjs/event-emitter';
+import { RequestContextModule } from 'nestjs-request-context';
+import { CqrsModule } from '@nestjs/cqrs';
 
 const interceptors = [
   {
@@ -19,9 +22,12 @@ const interceptors = [
 
 @Module({
   imports: [
+    EventEmitterModule.forRoot(),
+    RequestContextModule,
     SlonikModule.forRoot({
       connectionUri: postgresConnectionUri,
     }),
+    CqrsModule,
     UserModule,
   ],
   controllers: [],

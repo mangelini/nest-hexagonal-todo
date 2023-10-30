@@ -7,13 +7,18 @@ import { UserMapper } from './user.mapper';
 import { USER_REPOSITORY } from './user.di-tokens';
 import { UserRepository } from './database/user.repository';
 import { CqrsModule } from '@nestjs/cqrs';
+import { FindUsersHttpController } from './queries/find-users/find-users.http.controller';
+import { FindUsersQueryHandler } from './queries/find-users/find-users.query-handler';
 
 const httpControllers = [
   CreateUserHttpController,
   DeleteUserHttpController,
+  FindUsersHttpController,
 ];
 
 const commandHandlers: Provider[] = [CreateUserService, DeleteUserService];
+
+const queryHandlers: Provider[] = [FindUsersQueryHandler];
 
 const mappers: Provider[] = [UserMapper];
 
@@ -28,6 +33,7 @@ const repositories: Provider[] = [
     Logger,
     ...repositories,
     ...commandHandlers,
+    ...queryHandlers,
     ...mappers,
   ],
 })
