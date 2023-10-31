@@ -1,4 +1,4 @@
-import { TodoProps, TodoStatus } from './todo.types';
+import { CreateTodoProps, TodoProps, TodoStatus } from './todo.types';
 import { AggregateID, AggregateRoot } from '@src/libs/ddd';
 import * as crypto from 'crypto';
 import { TodoCreatedDomainEvent } from './events/todo-created.domain-event';
@@ -10,7 +10,7 @@ import { TodoDescriptionUpdatedDomainEvent } from './events/todo-description-upd
 export class TodoEntity extends AggregateRoot<TodoProps> {
   protected readonly _id: AggregateID;
 
-  static create(create: TodoProps): TodoEntity {
+  static create(create: CreateTodoProps): TodoEntity {
     const id = crypto.randomUUID();
     const props: TodoProps = { ...create, status: TodoStatus.active };
     const todo = new TodoEntity({ id, props });
