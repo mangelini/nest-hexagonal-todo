@@ -28,7 +28,7 @@ export class CreateTodoHttpController {
     status: HttpStatus.BAD_REQUEST,
     type: ApiErrorResponse,
   })
-  @Post(routesV1.user.root)
+  @Post(routesV1.todo.root)
   async create(@Body() body: CreateTodoRequestDto): Promise<IdResponse> {
     const command = new CreateTodoCommand(body);
 
