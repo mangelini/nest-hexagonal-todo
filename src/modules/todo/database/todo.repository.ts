@@ -66,4 +66,11 @@ export class TodoRepository
     )`UPDATE "todos" SET description=${description} WHERE id = ${todoId}`;
     await this.pool.query(statement);
   }
+
+  async changeStatus(todoId: string, status: TodoStatus): Promise<void> {
+    const statement = sql.type(
+      todoSchema,
+    )`UPDATE "todos" SET status=${status} WHERE id = ${todoId}`;
+    await this.pool.query(statement);
+  }
 }

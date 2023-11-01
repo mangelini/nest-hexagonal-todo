@@ -13,6 +13,8 @@ export const routesV1 = {
   },
   todo: {
     root: todosRoot,
-    delete: `/${todosRoot}/:id`,
+    changeStatus: `/${todosRoot}/:id/change-status`,
+    updateTitle: `/${todosRoot}/:id/update-title`,
+    updateDescription: `/${todosRoot}/:id/update-description`,
   },
 };
