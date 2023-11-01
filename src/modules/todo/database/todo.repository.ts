@@ -52,4 +52,18 @@ export class TodoRepository
     );
     return todos;
   }
+
+  async updateTitle(todoId: string, title: string): Promise<void> {
+    const statement = sql.type(
+      todoSchema,
+    )`UPDATE "todos" SET title=${title} WHERE id = ${todoId}`;
+    await this.pool.query(statement);
+  }
+
+  async updateDescription(todoId: string, description: string): Promise<void> {
+    const statement = sql.type(
+      todoSchema,
+    )`UPDATE "todos" SET description=${description} WHERE id = ${todoId}`;
+    await this.pool.query(statement);
+  }
 }
