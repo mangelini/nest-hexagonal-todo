@@ -24,7 +24,7 @@ export class UpdateTodoHttpController {
     status: HttpStatus.BAD_REQUEST,
     type: ApiErrorResponse,
   })
-  @Post(routesV1.todo.root)
+  @Post(routesV1.todo.updateTitle)
   async updateTitle(
     @Body() body: UpdateTodoTitleCommandDto,
   ): Promise<IdResponse> {
@@ -51,7 +51,7 @@ export class UpdateTodoHttpController {
     status: HttpStatus.BAD_REQUEST,
     type: ApiErrorResponse,
   })
-  @Post(routesV1.todo.root)
+  @Post(routesV1.todo.updateDescription)
   async updateDescription(
     @Body() body: UpdateTodoDescriptionCommandDto,
   ): Promise<IdResponse> {

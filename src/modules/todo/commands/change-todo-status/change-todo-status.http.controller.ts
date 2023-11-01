@@ -25,13 +25,9 @@ export class ChangeTodoStatusHttpController {
   })
   @Post(routesV1.todo.changeStatus)
   async changeStatus(
-    @Param('id') todoId: string,
     @Body(new TodoStatusValidationPipe()) body: ChangeTodoStatusRequestDTO,
   ): Promise<IdResponse> {
-    const command = new ChangeTodoStatusCommand({
-      todoId: todoId,
-      status: body.status,
-    });
+    const command = new ChangeTodoStatusCommand(body);
 
     const result: Result<AggregateID, Error> = await this.commandBus.execute(
       command,
