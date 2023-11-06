@@ -7,7 +7,7 @@ import { DatabasePool, sql } from 'slonik';
 import { TodoModel, todoSchema } from '../../database/todo.repository';
 
 export class FindTodosByUserQuery extends PaginatedQueryBase {
-  readonly userId?: string;
+  readonly userId: string;
 
   constructor(props: PaginatedParams<FindTodosByUserQuery>) {
     super(props);
@@ -25,12 +25,11 @@ export class FindTodosByUserQueryHandler implements IQueryHandler {
   async execute(
     query: FindTodosByUserQuery,
   ): Promise<Result<Paginated<TodoModel>, Error>> {
-    //TODO do dynamic query like in user
     const statement = sql.type(todoSchema)`
          SELECT *
          FROM todos
          WHERE
-           ${query.userId ? sql`userId = ${query.userId}` : true}
+           userId=${query.userId}
          LIMIT ${query.limit}
          OFFSET ${query.offset}`;
 
