@@ -14,7 +14,7 @@ export class DeleteTodoCommand {
 }
 
 @CommandHandler(DeleteTodoCommand)
-export class DeleteUserService {
+export class DeleteTodoService {
   constructor(
     @Inject(TODO_REPOSITORY)
     private readonly todoRepo: TodoRepositoryPort,
