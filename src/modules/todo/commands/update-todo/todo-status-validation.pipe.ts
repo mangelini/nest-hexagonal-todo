@@ -1,25 +1,27 @@
-import {
-  PipeTransform,
-  Injectable,
-  ArgumentMetadata,
-  BadRequestException,
-} from '@nestjs/common';
+import { BadRequestException, PipeTransform } from '@nestjs/common';
 import { TodoStatus } from '../../domain/todo.types';
 
-@Injectable()
 export class TodoStatusValidationPipe implements PipeTransform {
-  transform(value: string, metadata: ArgumentMetadata) {
-    value = value.toLowerCase();
+  readonly allowedStatuses = [
+    TodoStatus.active,
+    TodoStatus.completed,
+    TodoStatus.archived,
+  ];
 
-    if (!this.isValid(value)) {
-      throw new BadRequestException(`Invalid status value: ${value}`);
+  transform(value: any) {
+    if (value && typeof value === 'string') {
+      value = value.toUpperCase();
+
+      if (!this.isStatusValid(value)) {
+        throw new BadRequestException(`"${value}" is an invalid status`);
+      }
     }
 
-    return value as TodoStatus;
+    return value;
   }
 
-  private isValid(value: any): boolean {
-    const enumValues = Object.values(TodoStatus);
-    return enumValues.includes(value);
+  private isStatusValid(status: any) {
+    const idx = this.allowedStatuses.indexOf(status);
+    return idx !== -1;
   }
 }

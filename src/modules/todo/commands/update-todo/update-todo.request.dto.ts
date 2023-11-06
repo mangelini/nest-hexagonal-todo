@@ -28,10 +28,11 @@ export class UpdateTodoDescriptionCommandDto {
   @ApiProperty({
     example: 'active',
     description: 'A Todo status can be either active, completed or archived',
+    required: false,
   })
   @IsEnum(TodoStatus, {
     message:
       'Invalid status value. Valid values are active, completed, or archived.',
   })
-  status: TodoStatus;
+  status?: TodoStatus;
 }

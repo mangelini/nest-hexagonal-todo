@@ -1,4 +1,11 @@
-import { Body, Controller, HttpStatus, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpStatus,
+  Patch,
+  Post,
+  UsePipes,
+} from '@nestjs/common';
 import { routesV1 } from '@config/app.routes';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { CommandBus } from '@nestjs/cqrs';
@@ -22,10 +29,9 @@ export class UpdateTodoHttpController {
     status: HttpStatus.BAD_REQUEST,
     type: ApiErrorResponse,
   })
-  @Post(routesV1.todo.root)
-  async update(
-    @Body(new TodoStatusValidationPipe()) body: UpdateTodoCommand,
-  ): Promise<IdResponse> {
+  @Patch(routesV1.todo.root)
+  @UsePipes(new TodoStatusValidationPipe())
+  async update(@Body() body: UpdateTodoCommand): Promise<IdResponse> {
     const command = new UpdateTodoCommand(body);
 
     const result: Result<AggregateID, Error> = await this.commandBus.execute(
