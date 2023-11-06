@@ -7,16 +7,13 @@ import { DatabasePool, sql } from 'slonik';
 import { UserModel, userSchema } from '../../database/user.repository';
 
 export class FindUsersQuery extends PaginatedQueryBase {
-  readonly id?: number;
-
-  readonly uuid?: string;
+  readonly id?: string;
 
   readonly username?: string;
 
   constructor(props: PaginatedParams<FindUsersQuery>) {
     super(props);
     this.id = props.id;
-    this.uuid = props.uuid;
     this.username = props.username;
   }
 }
@@ -46,7 +43,6 @@ export class FindUsersQueryHandler implements IQueryHandler {
          FROM users
          WHERE
            ${query.id ? sql`id = ${query.id}` : true} AND
-           ${query.uuid ? sql`uuid = ${query.uuid}` : true} AND
            ${query.username ? sql`"username" = ${query.username}` : true}
          LIMIT ${query.limit}
          OFFSET ${query.offset}`;

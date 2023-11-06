@@ -60,7 +60,7 @@ export class TodoRepository
         ${props.title ? sql`title = ${props.title},` : sql``}
         ${props.description ? sql`description = ${props.description},` : sql``}
         ${props.status ? sql`status = ${props.status},` : sql``}
-        updated_at = NOW()
+        "updatedAt"=NOW()
       WHERE id = ${props.todoId}
     `;
 

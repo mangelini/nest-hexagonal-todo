@@ -10,7 +10,7 @@ import { DatabasePool, sql } from 'slonik';
 import { z } from 'zod';
 
 export const userSchema = z.object({
-  uuid: z.string().uuid(),
+  id: z.string().uuid(),
   createdAt: z.preprocess((val: any) => new Date(val), z.date()),
   updatedAt: z.preprocess((val: any) => new Date(val), z.date()),
   username: z.string(),

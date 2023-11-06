@@ -6,10 +6,10 @@ import { Err, Ok, Result } from 'oxide.ts';
 import { USER_REPOSITORY } from '../../user.di-tokens';
 
 export class DeleteUserCommand {
-  readonly userUuid: string;
+  readonly userId: string;
 
   constructor(props: DeleteUserCommand) {
-    this.userUuid = props.userUuid;
+    this.userId = props.userId;
   }
 }
 
@@ -23,7 +23,7 @@ export class DeleteUserService {
   async execute(
     command: DeleteUserCommand,
   ): Promise<Result<boolean, NotFoundException>> {
-    const found = await this.userRepo.findOneById(command.userUuid);
+    const found = await this.userRepo.findOneById(command.userId);
     if (found.isNone()) return Err(new NotFoundException());
     const user = found.unwrap();
     user.delete();

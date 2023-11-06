@@ -41,8 +41,12 @@ export class FindUsersHttpController {
     return new UserPaginatedResponseDto({
       ...paginated,
       data: paginated.data.map((user) => ({
-        ...new ResponseBase({id: user.uuid, createdAt: user.createdAt, updatedAt: user.updatedAt}),
-        username: user.username
+        ...new ResponseBase({
+          id: user.id,
+          createdAt: user.createdAt,
+          updatedAt: user.updatedAt,
+        }),
+        username: user.username,
       })),
     });
   }
