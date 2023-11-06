@@ -8,7 +8,7 @@ import { TodoProps, TodoStatus, UpdateTodoProps } from '../domain/todo.types';
 import { TodoEntity } from '../domain/todo.entity';
 import { TodoRepositoryPort } from './todo.repository.port';
 import { TodoMapper } from '../todo.mapper';
-
+import { QueryResultRow } from 'slonik';
 export const todoSchema = z.object({
   id: z.string().min(1).max(255),
   createdAt: z.preprocess((val: any) => new Date(val), z.date()),
@@ -54,16 +54,21 @@ export class TodoRepository
   }
 
   async updateTodo(props: UpdateTodoProps): Promise<void> {
-    const statement = sql`
-      UPDATE "todos"
-      SET
-        ${props.title ? sql`title = ${props.title},` : sql``}
-        ${props.description ? sql`description = ${props.description},` : sql``}
-        ${props.status ? sql`status = ${props.status},` : sql``}
-        "updatedAt"=NOW()
-      WHERE id = ${props.todoId}
-    `;
+    const updates: any[] = [];
+    if (props.title) updates.push(sql`"title"=${props.title}`);
+    if (props.description)
+      updates.push(sql`"description"=${props.description}`);
+    if (props.status) updates.push(sql`"status"=${props.status}`);
+    updates.push(sql`"updatedAt"=NOW()`);
 
-    await this.pool.query(statement);
+    console.log('updates', updates);
+    console.log('props.todoId', props.todoId);
+
+    const statement = sql`UPDATE "todos" SET ${sql.join(
+      updates,
+      sql`, `,
+    )} WHERE "id"=${props.todoId}`;
+
+    await this.pool.query<QueryResultRow>(statement);
   }
 }

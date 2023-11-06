@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
 import { TodoStatus } from '../../domain/todo.types';
 
-export class UpdateTodoDescriptionCommandDto {
+export class UpdateTodoRequestDto {
   @ApiProperty({
     example: '753f6861-9391-4f2e-89cf-21093b6aebc3',
     description: 'Todo id',

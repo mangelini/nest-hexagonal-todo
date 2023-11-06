@@ -38,7 +38,7 @@ export class UpdateTodoService {
 
     await this.todoRepo.transaction(async () =>
       this.todoRepo.updateTodo({
-        todoId: command.id,
+        todoId: command.todoId,
         title: command.title,
         description: command.description,
         status: command.status,
