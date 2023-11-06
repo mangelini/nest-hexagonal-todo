@@ -5,32 +5,37 @@ import { Ok, Result } from 'oxide.ts';
 import { TODO_REPOSITORY } from '../../todo.di-tokens';
 import { TodoRepositoryPort } from '../../database/todo.repository.port';
 import { AggregateID } from '@src/libs/ddd';
+import { UpdateTodoCommand } from './update-todo.command';
+import { TodoEntity } from '../../domain/todo.entity';
 
-export class UpdateTodoTitleCommand {
-  readonly todoId: string;
-  readonly title: string;
-
-  constructor(props: UpdateTodoTitleCommand) {
-    this.todoId = props.todoId;
-    this.title = props.title;
-  }
-}
-
-@CommandHandler(UpdateTodoTitleCommand)
-export class UpdateTodoTitleService {
+@CommandHandler(UpdateTodoCommand)
+export class UpdateTodoService {
   constructor(
     @Inject(TODO_REPOSITORY)
     private readonly todoRepo: TodoRepositoryPort,
   ) {}
 
   async execute(
-    command: UpdateTodoTitleCommand,
+    command: UpdateTodoCommand,
   ): Promise<Result<AggregateID, NotFoundException>> {
     try {
-      await this.todoRepo.updateTitle(command.todoId, command.title);
-      return Ok(command.todoId);
+      const oldTodo: TodoEntity = (
+        await this.todoRepo.findOneById(command.todoId)
+      ).unwrap();
+      if (command.title) {
+        oldTodo.updateTitle(command.title);
+      }
+      if (command.description) {
+        oldTodo.updateDescription(command.description);
+      }
+      if (command.status) {
+        oldTodo.updateStatus(command.status);
+      }
     } catch (error: any) {
-      throw error;
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
     }
+    return Ok(command.todoId);
   }
 }

@@ -30,7 +30,7 @@ export class TodoEntity extends AggregateRoot<TodoProps> {
     return this.props.status;
   }
 
-  private changeStatus(newStatus: TodoStatus): void {
+  updateStatus(newStatus: TodoStatus): void {
     this.addEvent(
       new TodoStatusChangedDomainEvent({
         aggregateId: this.id,
@@ -40,18 +40,6 @@ export class TodoEntity extends AggregateRoot<TodoProps> {
     );
 
     this.props.status = newStatus;
-  }
-
-  makeActive(): void {
-    this.changeStatus(TodoStatus.active);
-  }
-
-  makeCompleted(): void {
-    this.changeStatus(TodoStatus.completed);
-  }
-
-  makeArchived(): void {
-    this.changeStatus(TodoStatus.archived);
   }
 
   updateTitle(title: string): void {

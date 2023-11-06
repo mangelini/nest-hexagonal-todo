@@ -13,6 +13,7 @@ export interface CreateTodoProps {
   title: string;
   description: string;
   id?: string;
+  status?: TodoStatus;
 }
 
 export interface UpdateTodoProps {
