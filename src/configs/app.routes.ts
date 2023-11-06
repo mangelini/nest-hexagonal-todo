@@ -14,5 +14,6 @@ export const routesV1 = {
   todo: {
     root: todosRoot,
     delete: `/${todosRoot}/:id`,
+    findByUser: `/${todosRoot}/find-by-user/`,
   },
 };

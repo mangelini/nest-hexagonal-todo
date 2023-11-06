@@ -28,8 +28,7 @@ export class FindTodosByUserQueryHandler implements IQueryHandler {
     const statement = sql.type(todoSchema)`
          SELECT *
          FROM todos
-         WHERE
-           userId=${query.userId}
+         WHERE "userId"=${query.userId}
          LIMIT ${query.limit}
          OFFSET ${query.offset}`;
 

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpStatus, Query } from '@nestjs/common';
+import { Body, Controller, Get, HttpStatus, Post, Query } from '@nestjs/common';
 import { routesV1 } from '@config/app.routes';
 import { QueryBus } from '@nestjs/cqrs';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
@@ -15,12 +15,12 @@ import { TodoModel } from '../../database/todo.repository';
 export class FindTodosHttpController {
   constructor(private readonly queryBus: QueryBus) {}
 
-  @Get(routesV1.todo.root)
   @ApiOperation({ summary: 'Find todos by user' })
   @ApiResponse({
     status: HttpStatus.OK,
     type: TodoPaginatedResponseDto,
   })
+  @Post(routesV1.todo.findByUser)
   async findTodos(
     @Body() request: FindTodosByUserRequestDto,
     @Query() queryParams: PaginatedQueryRequestDto,
