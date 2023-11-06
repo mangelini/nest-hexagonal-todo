@@ -61,9 +61,6 @@ export class TodoRepository
     if (props.status) updates.push(sql`"status"=${props.status}`);
     updates.push(sql`"updatedAt"=NOW()`);
 
-    console.log('updates', updates);
-    console.log('props.todoId', props.todoId);
-
     const statement = sql`UPDATE "todos" SET ${sql.join(
       updates,
       sql`, `,
