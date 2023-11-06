@@ -4,7 +4,7 @@ import { EventEmitter2 } from '@nestjs/event-emitter';
 import { InjectPool } from 'nestjs-slonik';
 import { DatabasePool, sql } from 'slonik';
 import { z } from 'zod';
-import { TodoStatus, UpdateTodoProps } from '../domain/todo.types';
+import { TodoProps, TodoStatus, UpdateTodoProps } from '../domain/todo.types';
 import { TodoEntity } from '../domain/todo.entity';
 import { TodoRepositoryPort } from './todo.repository.port';
 import { TodoMapper } from '../todo.mapper';
@@ -53,13 +53,17 @@ export class TodoRepository
     return todos;
   }
 
-  async updateTodo(todo: UpdateTodoProps): Promise<void> {
-    const statement = sql.type(todoSchema)`
-      UPDATE "todos" 
-      ${todo.title ? sql`SET title=${todo.title}` : true},
-      ${todo.description ? sql`SET description=${todo.description}` : true},
-      ${todo.status ? sql`SET status=${todo.status}` : true} 
-      WHERE id = ${todo.todoId}`;
+  async updateTodo(props: UpdateTodoProps): Promise<void> {
+    const statement = sql`
+      UPDATE "todos"
+      SET
+        ${props.title ? sql`title = ${props.title},` : sql``}
+        ${props.description ? sql`description = ${props.description},` : sql``}
+        ${props.status ? sql`status = ${props.status},` : sql``}
+        updated_at = NOW()
+      WHERE id = ${props.todoId}
+    `;
+
     await this.pool.query(statement);
   }
 }

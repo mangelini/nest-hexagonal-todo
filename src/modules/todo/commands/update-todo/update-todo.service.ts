@@ -19,18 +19,27 @@ export class UpdateTodoService {
     command: UpdateTodoCommand,
   ): Promise<Result<AggregateID, NotFoundException>> {
     try {
-      const oldTodo: TodoEntity = (
+      const todo: TodoEntity = (
         await this.todoRepo.findOneById(command.todoId)
       ).unwrap();
       if (command.title) {
-        oldTodo.updateTitle(command.title);
+        todo.updateTitle(command.title);
       }
       if (command.description) {
-        oldTodo.updateDescription(command.description);
+        todo.updateDescription(command.description);
       }
       if (command.status) {
-        oldTodo.updateStatus(command.status);
+        todo.updateStatus(command.status);
       }
+
+      await this.todoRepo.transaction(async () =>
+        this.todoRepo.updateTodo({
+          todoId: command.id,
+          title: command.title,
+          description: command.description,
+          status: command.status,
+        }),
+      );
     } catch (error: any) {
       if (error instanceof NotFoundException) {
         throw error;
