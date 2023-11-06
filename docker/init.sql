@@ -11,7 +11,7 @@ CREATE TABLE "todos" (
   "id" serial PRIMARY KEY,
   "createdAt" TIMESTAMP NOT NULL DEFAULT now(),
   "updatedAt" TIMESTAMP NOT NULL DEFAULT now(),
-  "userId" INT REFERENCES users(id) ON DELETE CASCADE,
+  "userId" character varying REFERENCES users(uuid) ON DELETE CASCADE,
   "title" character varying NOT NULL,
   "description" character varying NOT NULL,
   "status" character varying NOT NULL,
