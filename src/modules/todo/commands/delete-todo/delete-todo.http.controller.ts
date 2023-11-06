@@ -27,7 +27,7 @@ export class DeleteTodoHttpController {
     description: NotFoundException.message,
     type: ApiErrorResponse,
   })
-  @Delete(routesV1.todo.delete)
+  @Delete(`${routesV1.todo}/:id`)
   async deleteUser(@Param('id') id: string): Promise<void> {
     const command = new DeleteTodoCommand({ id });
     const result: Result<boolean, NotFoundException> =
