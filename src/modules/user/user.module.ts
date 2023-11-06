@@ -1,6 +1,6 @@
 import { Logger, Module, Provider } from '@nestjs/common';
 import { CreateUserHttpController } from './commands/create-user/create-user.http.controller';
-import { DeleteUserHttpController } from './commands/delete-user/delete-user.http-controller';
+import { DeleteUserHttpController } from './commands/delete-user/delete-user.http.controller';
 import { CreateUserService } from './commands/create-user/create-user.service';
 import { DeleteUserService } from './commands/delete-user/delete-user.service';
 import { UserMapper } from './user.mapper';
