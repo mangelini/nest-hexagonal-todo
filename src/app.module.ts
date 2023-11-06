@@ -8,6 +8,7 @@ import { SlonikModule } from 'nestjs-slonik';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { RequestContextModule } from 'nestjs-request-context';
 import { CqrsModule } from '@nestjs/cqrs';
+import { TodoModule } from './modules/todo/todo.module';
 
 const interceptors = [
   {
@@ -29,6 +30,7 @@ const interceptors = [
     }),
     CqrsModule,
     UserModule,
+    TodoModule,
   ],
   controllers: [],
   providers: [...interceptors],
