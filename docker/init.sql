@@ -8,7 +8,7 @@ CREATE TABLE "users" (
 );
 
 CREATE TABLE "todos" (
-  "id" serial PRIMARY KEY,
+  "id" character varying PRIMARY KEY,
   "createdAt" TIMESTAMP NOT NULL DEFAULT now(),
   "updatedAt" TIMESTAMP NOT NULL DEFAULT now(),
   "userId" character varying REFERENCES users(uuid) ON DELETE CASCADE,
