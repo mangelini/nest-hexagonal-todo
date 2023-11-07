@@ -1,9 +1,6 @@
-import { UserRepositoryPort } from '@modules/user/database/user.repository.port';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { Err, Ok, Result } from 'oxide.ts';
+import { Ok, Result } from 'oxide.ts';
 import { AggregateID } from '@libs/ddd';
-import { UserEntity } from '@modules/user/domain/user.entity';
-import { ConflictException } from '@libs/exceptions';
 import { Inject } from '@nestjs/common';
 import { CreateTodoCommand } from './create-todo.command';
 import { TODO_REPOSITORY } from '../../todo.di-tokens';
