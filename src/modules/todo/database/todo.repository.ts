@@ -4,11 +4,12 @@ import { EventEmitter2 } from '@nestjs/event-emitter';
 import { InjectPool } from 'nestjs-slonik';
 import { DatabasePool, sql } from 'slonik';
 import { z } from 'zod';
-import { TodoProps, TodoStatus, UpdateTodoProps } from '../domain/todo.types';
+import { TodoStatus, UpdateTodoProps } from '../domain/todo.types';
 import { TodoEntity } from '../domain/todo.entity';
 import { TodoRepositoryPort } from './todo.repository.port';
 import { TodoMapper } from '../todo.mapper';
 import { QueryResultRow } from 'slonik';
+
 export const todoSchema = z.object({
   id: z.string().min(1).max(255),
   createdAt: z.preprocess((val: any) => new Date(val), z.date()),
