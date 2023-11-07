@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsString, IsOptional } from 'class-validator';
 import { TodoStatus } from '../../domain/todo.types';
 
 export class UpdateTodoRequestDto {
@@ -16,6 +16,7 @@ export class UpdateTodoRequestDto {
     description: 'Todo title',
   })
   @IsString()
+  @IsOptional()
   readonly title?: string;
 
   @ApiProperty({
@@ -23,6 +24,7 @@ export class UpdateTodoRequestDto {
     description: 'Todo description',
   })
   @IsString()
+  @IsOptional()
   readonly description?: string;
 
   @ApiProperty({
@@ -34,5 +36,6 @@ export class UpdateTodoRequestDto {
     message:
       'Invalid status value. Valid values are active, completed, or archived.',
   })
+  @IsOptional()
   status?: TodoStatus;
 }
