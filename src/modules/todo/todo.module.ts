@@ -9,8 +9,9 @@ import { UpdateTodoHttpController } from './commands/update-todo/update-todo.htt
 import { CreateTodoService } from './commands/create-todo/create-todo.service';
 import { DeleteTodoService } from './commands/delete-todo/delete-todo.service';
 import { UpdateTodoService } from './commands/update-todo/update-todo.service';
-import { FindTodosByUserQueryHandler } from './queries/find-todos-by-user/find-todos-by-user.query-handler';
-import { FindTodosHttpController } from './queries/find-todos-by-user/find-todos.http.controller';
+import { FindTodosByUserQueryHandler } from './queries/find-todos/by-user/find-todos-by-user.query-handler';
+import { FindTodosHttpController } from './queries/find-todos/find-todos.http.controller';
+import { FindTodosByStatusQueryHandler } from './queries/find-todos/by-status/find-todos-by-status.query-handler';
 
 const httpControllers = [
   CreateTodoHttpController,
@@ -25,7 +26,10 @@ const commandHandlers: Provider[] = [
   UpdateTodoService,
 ];
 
-const queryHandlers: Provider[] = [FindTodosByUserQueryHandler];
+const queryHandlers: Provider[] = [
+  FindTodosByUserQueryHandler,
+  FindTodosByStatusQueryHandler,
+];
 
 const mappers: Provider[] = [TodoMapper];
 

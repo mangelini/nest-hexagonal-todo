@@ -4,7 +4,7 @@ import { PaginatedParams, PaginatedQueryBase } from '@libs/ddd/query.base';
 import { Paginated } from '@src/libs/ddd';
 import { InjectPool } from 'nestjs-slonik';
 import { DatabasePool, sql } from 'slonik';
-import { TodoModel, todoSchema } from '../../database/todo.repository';
+import { TodoModel, todoSchema } from '../../../database/todo.repository';
 
 export class FindTodosByUserQuery extends PaginatedQueryBase {
   readonly userId: string;
