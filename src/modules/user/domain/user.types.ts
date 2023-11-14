@@ -13,3 +13,13 @@ export enum UserRoles {
   admin = 'admin',
   customer = 'customer',
 }
+
+export interface LoginUserPayload {
+  id: string;
+  username: string;
+}
+
+export interface LoginAccess {
+  access_token: string;
+  id: string;
+}

@@ -3,7 +3,7 @@ import { IsOptional, IsString } from 'class-validator';
 
 export class FindUsersRequestDto {
   @ApiProperty({ example: 'some-complex-string', description: 'User id' })
-  @IsOptional()
   @IsString()
+  @IsOptional()
   readonly id?: string;
 }

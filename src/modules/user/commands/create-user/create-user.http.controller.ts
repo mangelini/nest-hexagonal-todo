@@ -34,7 +34,7 @@ export class CreateUserHttpController {
     status: HttpStatus.BAD_REQUEST,
     type: ApiErrorResponse,
   })
-  @Post(routesV1.user.root)
+  @Post(routesV1.user.register)
   async create(@Body() body: CreateUserRequestDto): Promise<IdResponse> {
     const command = new CreateUserCommand(body);
 

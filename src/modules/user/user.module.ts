@@ -9,16 +9,23 @@ import { UserRepository } from './database/user.repository';
 import { CqrsModule } from '@nestjs/cqrs';
 import { FindUsersHttpController } from './queries/find-users/find-users.http.controller';
 import { FindUsersQueryHandler } from './queries/find-users/find-users.query-handler';
+import { LoginUserHttpController } from './queries/login-user/login-user.http.controller';
+import { LoginUserQueryHandler } from './queries/login-user/login-user.query-handler';
+import { AuthModule } from '../auth/auth.module';
 
 const httpControllers = [
   CreateUserHttpController,
   DeleteUserHttpController,
   FindUsersHttpController,
+  LoginUserHttpController,
 ];
 
 const commandHandlers: Provider[] = [CreateUserService, DeleteUserService];
 
-const queryHandlers: Provider[] = [FindUsersQueryHandler];
+const queryHandlers: Provider[] = [
+  FindUsersQueryHandler,
+  LoginUserQueryHandler,
+];
 
 const mappers: Provider[] = [UserMapper];
 
@@ -27,7 +34,7 @@ const repositories: Provider[] = [
 ];
 
 @Module({
-  imports: [CqrsModule],
+  imports: [CqrsModule, AuthModule],
   controllers: [...httpControllers],
   providers: [
     Logger,

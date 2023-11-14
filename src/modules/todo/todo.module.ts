@@ -12,6 +12,7 @@ import { UpdateTodoService } from './commands/update-todo/update-todo.service';
 import { FindTodosByUserQueryHandler } from './queries/find-todos/by-user/find-todos-by-user.query-handler';
 import { FindTodosHttpController } from './queries/find-todos/find-todos.http.controller';
 import { FindTodosByStatusQueryHandler } from './queries/find-todos/by-status/find-todos-by-status.query-handler';
+import { AuthModule } from '../auth/auth.module';
 
 const httpControllers = [
   CreateTodoHttpController,
@@ -38,7 +39,7 @@ const repositories: Provider[] = [
 ];
 
 @Module({
-  imports: [CqrsModule],
+  imports: [CqrsModule, AuthModule],
   controllers: [...httpControllers],
   providers: [
     Logger,

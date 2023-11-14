@@ -1,4 +1,4 @@
-import { Body, Controller, HttpStatus, Patch } from '@nestjs/common';
+import { Body, Controller, HttpStatus, Patch, UseGuards } from '@nestjs/common';
 import { routesV1 } from '@config/app.routes';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { CommandBus } from '@nestjs/cqrs';
@@ -9,6 +9,7 @@ import { ApiErrorResponse } from '@src/libs/api/api-error.response';
 import { UpdateTodoCommand } from './update-todo.command';
 import { TodoStatusValidationPipe } from './todo-status-validation.pipe';
 import { UpdateTodoRequestDto } from './update-todo.request.dto';
+import { JwtAuthGuard } from '@src/modules/auth/jwt-auth.guard';
 
 @Controller(routesV1.version)
 export class UpdateTodoHttpController {
@@ -24,6 +25,7 @@ export class UpdateTodoHttpController {
     type: ApiErrorResponse,
   })
   @Patch(routesV1.todo.root)
+  @UseGuards(JwtAuthGuard)
   async update(
     @Body(new TodoStatusValidationPipe()) body: UpdateTodoRequestDto,
   ): Promise<IdResponse> {

@@ -9,6 +9,8 @@ export const routesV1 = {
   version: v1,
   user: {
     root: usersRoot,
+    register: `/${usersRoot}/register`,
+    login: `/${usersRoot}/login`,
     delete: `/${usersRoot}/:id`,
   },
   todo: {

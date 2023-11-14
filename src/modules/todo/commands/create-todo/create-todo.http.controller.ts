@@ -4,6 +4,7 @@ import {
   Controller,
   HttpStatus,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { routesV1 } from '@config/app.routes';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
@@ -14,6 +15,7 @@ import { AggregateID } from '@libs/ddd';
 import { ApiErrorResponse } from '@src/libs/api/api-error.response';
 import { CreateTodoRequestDto } from './create-todo.request.dto';
 import { CreateTodoCommand } from './create-todo.command';
+import { JwtAuthGuard } from '@src/modules/auth/jwt-auth.guard';
 
 @Controller(routesV1.version)
 export class CreateTodoHttpController {
@@ -29,6 +31,7 @@ export class CreateTodoHttpController {
     type: ApiErrorResponse,
   })
   @Post(routesV1.todo.root)
+  @UseGuards(JwtAuthGuard)
   async create(@Body() body: CreateTodoRequestDto): Promise<IdResponse> {
     const command = new CreateTodoCommand(body);
 
