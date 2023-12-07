@@ -19,6 +19,9 @@ The stack used in this project is the following:
   - zod for creating table schemas in the codebase
   - jwt stored in cookies for the authentication
 
+## Actual structure of project
+<img src="./illustration.png" width="700">
+
 ## How to run
 1. Install packages with: `npm install`
 2. Start docker container for Postgres: `npm run docker:env`
